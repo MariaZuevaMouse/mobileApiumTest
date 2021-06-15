@@ -29,7 +29,7 @@ public class nativeMobileTests extends BaseTest {
 
         String budgetPageName = getPo().getWelement("budgetPageName").getText();
 
-        assert (budgetPageName.equals("BudgetActivity"));
+        assert (budgetPageName.contains("Budget"));
 
     }
 

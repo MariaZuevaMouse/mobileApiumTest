@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -32,9 +33,6 @@ public class webMobileTests extends BaseTest {
         new WebDriverWait(getDriver(), 20).until(
                 wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete")
         );
-
-//        String searchTerm = TestProperties
-//                .getTestDataProperties().getProperty("search_term");
 
         getPo().getWelement("searchField").sendKeys(searchTerm);
         getPo().getWelement("searchField").sendKeys(Keys.ENTER);
