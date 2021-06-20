@@ -2,7 +2,7 @@
 <suite name="Web mobile testing Suite">
     <parameter name="appType" value="web"></parameter>
 <!--    <parameter name="udid" value="00008020-001229620CD3002E"></parameter>-->
-    <parameter name="udid" value="00008020-0004446C3441402E"></parameter>
+<!--    <parameter name="udid" value="00008020-0004446C3441402E"></parameter>-->
     <parameter name="platformName" value="iOS"></parameter>
     <parameter name="browserName" value="Safari"></parameter>
     <test name="Web tests">

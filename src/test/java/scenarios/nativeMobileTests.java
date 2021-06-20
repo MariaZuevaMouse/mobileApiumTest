@@ -1,27 +1,15 @@
 package scenarios;
 
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.NativeAppActions;
-import pageObjects.NativeAppElements;
 import setup.BaseTest;
-import util.TestProperties;
+import testData.DataProviders;
 
 public class nativeMobileTests extends BaseTest {
-    String userMail;
-    String userName;
-    String userPassword;
 
-    @BeforeMethod(alwaysRun = true)
-    public void setUp() {
-        userMail = TestProperties.getTestDataProperties().getProperty("user_email");
-        userName = TestProperties.getTestDataProperties().getProperty("user_name");
-        userPassword = TestProperties.getTestDataProperties().getProperty("user_password");
-        System.out.println("setUp  method done/ user mail: " + userMail);
-    }
-
-    @Test(groups = {"native"}, description = "Create simple account and login test")
-    public void testRegisterAccount() throws NoSuchFieldException, IllegalAccessException, InstantiationException {
+    @Test(groups = {"native"}, description = "Create simple account and login test",
+    dataProviderClass = DataProviders.class, dataProvider = "nativeTestData")
+    public void testRegisterAccount(String userMail, String userName, String userPassword) throws NoSuchFieldException, IllegalAccessException, InstantiationException {
 
         NativeAppActions.registerAccount(getPo(), userMail, userName, userPassword);
 

@@ -2,6 +2,7 @@ package setup;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import pageObjects.PageObject;
 
@@ -14,12 +15,17 @@ public class BaseTest implements IDriver {
 
     private static AppiumDriver appiumDriver; // singleton
     IPageObject po;
+    WebDriverWait driverWait;
 
     @Override
     public AppiumDriver getDriver() { return appiumDriver; }
 
     public IPageObject getPo() {
         return po;
+    }
+
+    public WebDriverWait getDriverWait() {
+        return driverWait;
     }
 
     @Parameters({"platformName","appType","deviceName", "udid",
@@ -36,6 +42,7 @@ public class BaseTest implements IDriver {
         System.out.println("Before: app type - "+appType);
         setAppiumDriver(platformName, deviceName, udid, browserName, app, appPackage, appActivity, bundleId);
         setPageObject(appType, appiumDriver);
+        driverWait = new WebDriverWait(appiumDriver, 10);
     }
 
     @AfterSuite(alwaysRun = true)
@@ -71,7 +78,7 @@ public class BaseTest implements IDriver {
 
         // Timeouts tuning
         appiumDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
+        appiumDriver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
     }
 
     private void setPageObject(String appType, AppiumDriver appiumDriver) throws Exception {

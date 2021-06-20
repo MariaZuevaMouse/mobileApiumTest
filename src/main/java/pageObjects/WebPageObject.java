@@ -16,6 +16,9 @@ public class WebPageObject  {
     @FindBy(css = "div[id='rso'] div[role='heading'][aria-level='3']")
     private List<WebElement> searchResults;
 
+    @FindBy(css = "a[href='https://www.epam-group.ru/']")
+    private WebElement searchResultAppeared;
+
     public WebPageObject(AppiumDriver appiumDriver) {
         PageFactory.initElements(appiumDriver, this);
     }

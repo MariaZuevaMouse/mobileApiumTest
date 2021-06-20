@@ -2,8 +2,8 @@
 <suite name="Native mobile testing Suite">
     <parameter name="appType" value="native"></parameter>
 <!--    <parameter name="deviceName" value="GOOGLE Pixel 2"></parameter>-->
-<!--    <parameter name="UDID" value="HT7AD1A00541"></parameter>-->
-    <parameter name="udid" value="0A071FDD4005QL"></parameter>
+    <parameter name="UDID" value="HT7AD1A00541"></parameter>
+<!--    <parameter name="udid" value="89HY075AQ"></parameter>-->
     <parameter name="platformName" value="Android"></parameter>
     <parameter name="appPackage" value="platovsky.alexey.epamtestapp"></parameter>
     <parameter name="appActivity" value="activities.LoginActivity"></parameter>
