@@ -3,7 +3,7 @@ package scenarios;
 import org.testng.annotations.Test;
 import pageObjects.NativeAppActions;
 import setup.BaseTest;
-import testData.DataProviders;
+import testdata.DataProviders;
 
 public class nativeMobileTests extends BaseTest {
 
