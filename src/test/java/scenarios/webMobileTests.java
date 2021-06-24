@@ -30,11 +30,14 @@ public class webMobileTests extends BaseTest {
 
 //        getDriverWait().until(ExpectedConditions.visibilityOf(getPo().getWelement("searchResultAppeared")));
 
+        new WebDriverWait(getDriver(), 10).until(
+                wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+
         List<WebElement> searchResults = getPo().getListWelements("searchResults");
 
         assertFalse (searchResults.isEmpty());
 
-        String someResult =  searchResults.get(0).getText();
+        String someResult =  searchResults.get(1).getText();
 
         assertTrue(someResult.contains(searchTerm));
 

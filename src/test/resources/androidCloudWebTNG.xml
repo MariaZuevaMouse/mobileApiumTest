@@ -2,8 +2,8 @@
 <suite name="Web mobile testing Suite">
     <parameter name="appType" value="web"></parameter>
 <!--    <parameter name="deviceName" value="GOOGLE Pixel 2"></parameter>-->
-<!--    <parameter name="udid" value="89HY075AQ"></parameter>-->
-    <parameter name="udid" value="HT7AD1A00541"></parameter>
+    <parameter name="udid" value="9A311FFAZ001WY"></parameter>
+<!--    <parameter name="udid" value="HT7AD1A00541"></parameter>-->
     <parameter name="platformName" value="Android"></parameter>
     <parameter name="browserName" value="Chrome"></parameter>
     <test name="Web tests">
