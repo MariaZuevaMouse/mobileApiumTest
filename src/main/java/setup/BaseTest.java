@@ -2,8 +2,13 @@ package setup;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import pageObjects.PageObject;
+import util.TestProperties;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -14,6 +19,7 @@ public class BaseTest implements IDriver {
 
     private static AppiumDriver appiumDriver; // singleton
     IPageObject po;
+    WebDriverWait driverWait;
 
     @Override
     public AppiumDriver getDriver() { return appiumDriver; }
@@ -22,13 +28,25 @@ public class BaseTest implements IDriver {
         return po;
     }
 
-    @Parameters({"platformName","appType","deviceName","browserName","app"})
-    @BeforeSuite(alwaysRun = true)
-    public void setUp(String platformName, String appType, String deviceName, @Optional("") String browserName, @Optional("") String app) throws Exception {
-        System.out.println("Before: app type - "+appType);
-        setAppiumDriver(platformName, deviceName, browserName, app);
-        setPageObject(appType, appiumDriver);
+    public WebDriverWait getDriverWait() {
+        return driverWait;
+    }
 
+    @Parameters({"platformName","appType","deviceName", "udid",
+            "browserName","appPackage", "appActivity", "bundleId"})
+    @BeforeSuite(alwaysRun = true)
+    public void setUp(String platformName, String appType,
+                      @Optional("") String deviceName,
+                      @Optional("") String udid,
+                      @Optional("") String browserName,
+                      @Optional("") String appPackage,
+                      @Optional("") String appActivity,
+                      @Optional("") String bundleId) throws Exception {
+        System.out.println("Before: app type - "+appType);
+        TestProperties.setTestDataProperties(appType);
+        setAppiumDriver(platformName, deviceName, udid, browserName, appPackage, appActivity, bundleId);
+        setPageObject(appType, appiumDriver);
+        driverWait = new WebDriverWait(appiumDriver, 10);
     }
 
     @AfterSuite(alwaysRun = true)
@@ -37,16 +55,22 @@ public class BaseTest implements IDriver {
         appiumDriver.closeApp();
     }
 
-    private void setAppiumDriver(String platformName, String deviceName, String browserName, String app){
+    private void setAppiumDriver(String platformName, String deviceName, String udid,
+                                 String browserName, String appPackage,
+                                 String appActivity, String bundleId){
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //mandatory Android capabilities
-        capabilities.setCapability("platformName",platformName);
-        capabilities.setCapability("deviceName",deviceName);
-
-        if(app.endsWith(".apk")) capabilities.setCapability("app", (new File(app)).getAbsolutePath());
+        capabilities.setCapability("platformName", platformName);
+        capabilities.setCapability("deviceName", deviceName);
+        capabilities.setCapability("udid", udid);
 
         capabilities.setCapability("browserName", browserName);
         capabilities.setCapability("chromedriverDisableBuildCheck","true");
+
+        capabilities.setCapability("appPackage", appPackage);
+        capabilities.setCapability("appActivity", appActivity);
+
+        capabilities.setCapability("bundleId", bundleId);
 
         try {
             appiumDriver = new AppiumDriver(new URL(System.getProperty("ts.appium")), capabilities);
@@ -55,7 +79,7 @@ public class BaseTest implements IDriver {
         }
 
         // Timeouts tuning
-        appiumDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        appiumDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
     }
 

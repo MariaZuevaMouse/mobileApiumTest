@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Native mobile testing Suite">
+    <parameter name="appType" value="native"></parameter>
+<!--    <parameter name="deviceName" value="GOOGLE Pixel 4"></parameter>-->
+<!--    <parameter name="UDID" value="9A311FFAZ001WY"></parameter>-->
+    <parameter name="udid" value="802KPFX1550899"></parameter>
+    <parameter name="platformName" value="Android"></parameter>
+    <parameter name="appPackage" value="platkovsky.alexey.epamtestapp"></parameter>
+    <parameter name="appActivity" value="activities.LoginActivity"></parameter>
+    <test name="Native tests">
+        <groups>
+            <run>
+                <include name="native"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="scenarios.nativeMobileTests"></class>
+        </classes>
+    </test>
+</suite>
