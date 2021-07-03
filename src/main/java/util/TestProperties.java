@@ -6,29 +6,29 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class TestProperties {
-    private static Properties testNativeDataProperties;
-    private static Properties testWebDataProperties;
+    private static Properties testDataProperties;
     private static String testNativeDataPropsPath = "src/main/resources/testnative.properties";
     private static String testWebDataPropsPath = "src/main/resources/testweb.properties";
+    
+    public static void setTestDataProperties(String appType) throws Exception {
+        testDataProperties = new Properties();
+        if(appType.equals("web")) {
+            loadProperties(testWebDataPropsPath);
+        } else if (appType.equals("native")) {
+            loadProperties(testNativeDataPropsPath);
+        } else throw new Exception("Can not find test properties for app type: " + appType);
+    }
 
-    static {
-        testNativeDataProperties = new Properties();
-        testWebDataProperties = new Properties();
-        try (InputStream in = new FileInputStream(testNativeDataPropsPath);
-             InputStream in2 = new FileInputStream(testWebDataPropsPath)){
-            testNativeDataProperties.load(in);
-            testWebDataProperties.load(in2);
-        }catch (IOException ex){
+    private static void loadProperties(String propsPath) {
+        try(InputStream in = new FileInputStream(propsPath)) {
+            testDataProperties.load(in);
+        } catch (IOException ex) {
             System.out.println("Can not load properties file");
             ex.printStackTrace();
         }
     }
 
-    public static Properties getTestNativeDataProperties() {
-        return testNativeDataProperties;
-    }
-
-    public static Properties getTestWebDataProperties() {
-        return testWebDataProperties;
+    public static Properties getTestDataProperties() {
+        return testDataProperties;
     }
 }

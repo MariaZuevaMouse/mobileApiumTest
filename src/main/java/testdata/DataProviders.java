@@ -7,13 +7,13 @@ public class DataProviders {
 
     @DataProvider(name = "webTestTerm")
     public static Object[][] webTestTerm(){
-        return new Object[][]{{TestProperties.getTestWebDataProperties().getProperty("search_term")}};
+        return new Object[][]{{TestProperties.getTestDataProperties().getProperty("search_term")}};
     }
 
     @DataProvider(name = "nativeTestData")
     public static Object[][] nativeTestData(){
-        return new Object[][]{{TestProperties.getTestNativeDataProperties().getProperty("user_email"),
-                TestProperties.getTestNativeDataProperties().getProperty("user_name"),
-                TestProperties.getTestNativeDataProperties().getProperty("user_password")}};
+        return new Object[][]{{TestProperties.getTestDataProperties().getProperty("user_email"),
+                TestProperties.getTestDataProperties().getProperty("user_name"),
+                TestProperties.getTestDataProperties().getProperty("user_password")}};
     }
 }

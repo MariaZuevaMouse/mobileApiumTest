@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import pageObjects.PageObject;
+import util.TestProperties;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -42,6 +43,7 @@ public class BaseTest implements IDriver {
                       @Optional("") String appActivity,
                       @Optional("") String bundleId) throws Exception {
         System.out.println("Before: app type - "+appType);
+        TestProperties.setTestDataProperties(appType);
         setAppiumDriver(platformName, deviceName, udid, browserName, appPackage, appActivity, bundleId);
         setPageObject(appType, appiumDriver);
         driverWait = new WebDriverWait(appiumDriver, 10);
